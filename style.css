@@ -379,6 +379,123 @@ body.preload { overflow: hidden; height: 100vh; }
 .pill-btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 18px 40px -20px rgba(59,16,16,0.6); }
 .pill-btn .pin, .pill-btn .icon { font-size: 1rem; }
 
+/* ---- Royal unrolling scroll (आज्ञापत्र) ---- */
+.scroll-cue-line {
+    font-family: var(--f-verse); font-style: italic; color: var(--maroon-soft);
+    font-size: clamp(0.9rem, 3.4vw, 1.02rem); margin-bottom: 20px; letter-spacing: 0.02em;
+}
+.royal-scroll {
+    width: 100%; max-width: 560px; margin: 0 auto;
+    cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+}
+.royal-scroll:focus-visible { box-shadow: 0 0 0 3px rgba(184,144,47,0.35); border-radius: 18px; }
+
+.scroll-rod {
+    position: relative; height: 22px; margin: 0 4px; z-index: 3;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #8a6a33 0%, #5f431d 46%, #3a2810 100%);
+    box-shadow: inset 0 2px 2px rgba(255,225,160,0.45), inset 0 -4px 6px rgba(0,0,0,0.55), 0 8px 18px -8px rgba(59,16,16,0.6);
+}
+.scroll-rod::before, .scroll-rod::after {
+    content: ""; position: absolute; top: 50%; transform: translateY(-50%);
+    width: 24px; height: 30px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #F2D98A, #B88A32 60%, #7a5a22);
+    box-shadow: 0 3px 8px -3px rgba(0,0,0,0.6);
+}
+.scroll-rod::before { left: -11px; }
+.scroll-rod::after { right: -11px; }
+.rod-top { border-radius: 12px 12px 9px 9px; }
+.rod-bottom { border-radius: 9px 9px 12px 12px; }
+
+.scroll-paper {
+    position: relative; z-index: 1; margin: -4px 16px;
+    background:
+        repeating-linear-gradient(0deg, rgba(120,80,20,0.025) 0 2px, transparent 2px 5px),
+        linear-gradient(180deg, #F6EACB, #EFDFB8);
+    border-left: 1px solid rgba(120,80,20,0.22);
+    border-right: 1px solid rgba(120,80,20,0.22);
+    box-shadow:
+        inset 14px 0 22px -16px rgba(90,50,10,0.5),
+        inset -14px 0 22px -16px rgba(90,50,10,0.5),
+        var(--shadow);
+    padding: 0 clamp(16px, 5vw, 34px);
+    overflow: hidden;
+}
+.scroll-paper::before, .scroll-paper::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 18px; pointer-events: none; z-index: 2;
+}
+.scroll-paper::before { top: 0; background: linear-gradient(180deg, rgba(74,40,8,0.32), transparent); }
+.scroll-paper::after { bottom: 0; background: linear-gradient(0deg, rgba(74,40,8,0.32), transparent); }
+
+/* Teaser (closed) */
+.scroll-teaser {
+    text-align: center; padding: 30px 10px 34px;
+    max-height: 260px; opacity: 1; overflow: hidden;
+    transition: max-height 0.6s ease, opacity 0.45s ease, padding 0.6s ease;
+}
+.royal-scroll.open .scroll-teaser { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; }
+.teaser-head { font-family: var(--f-verse); color: var(--maroon-soft); letter-spacing: 0.06em; font-size: clamp(0.9rem, 3.4vw, 1rem); }
+.teaser-date { font-family: var(--f-display); color: var(--maroon); font-size: clamp(1.3rem, 5.6vw, 1.8rem); margin: 6px 0 18px; }
+.wax-seal {
+    width: 86px; height: 86px; margin: 0 auto; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    background: radial-gradient(circle at 38% 32%, #7a241f, #5a1614 60%, #3d0d0c);
+    color: var(--gold-light); border: 2px solid var(--gold);
+    box-shadow: 0 8px 18px -8px rgba(0,0,0,0.6), inset 0 2px 6px rgba(255,210,160,0.25);
+    animation: sealPulse 2.2s ease-in-out infinite;
+}
+.seal-icon { font-size: 1.3rem; line-height: 1; }
+.seal-tap { font-family: var(--f-head); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.12em; }
+@keyframes sealPulse {
+    0%,100% { transform: scale(1); box-shadow: 0 8px 18px -8px rgba(0,0,0,0.6); }
+    50% { transform: scale(1.06); box-shadow: 0 10px 28px -6px rgba(201,162,74,0.55); }
+}
+
+/* Inner (opened) */
+.scroll-inner {
+    max-height: 0; opacity: 0; overflow: hidden; text-align: center;
+    transition: max-height 1.1s cubic-bezier(.2,.7,.2,1), opacity 0.8s ease 0.15s;
+}
+.royal-scroll.open .scroll-inner { max-height: 2600px; opacity: 1; padding-bottom: 32px; }
+.scroll-crest { font-family: var(--f-verse); color: var(--gold); letter-spacing: 0.08em; padding-top: 24px; }
+.scroll-date-line { font-family: var(--f-display); color: var(--maroon); font-size: clamp(1.3rem, 5.4vw, 1.75rem); margin-top: 4px; }
+
+.prog-block { text-align: left; margin-top: 18px; }
+.prog-title { font-family: var(--f-display); color: var(--saffron-deep); font-weight: 400; font-size: clamp(1.15rem, 4.8vw, 1.45rem); margin-bottom: 8px; text-align: center; }
+.prog-list { list-style: none; }
+.prog-item {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    padding: 10px 2px; border-bottom: 1px dashed rgba(184,144,47,0.38);
+}
+.prog-name { flex: 1 1 58%; font-family: var(--f-head); font-weight: 600; color: var(--maroon); font-size: clamp(0.98rem, 3.8vw, 1.1rem); display: flex; flex-direction: column; }
+.prog-note { font-family: var(--f-body); font-weight: 400; color: var(--maroon-soft); font-size: clamp(0.78rem, 3.1vw, 0.9rem); margin-top: 2px; }
+.prog-time { flex: 0 0 auto; font-family: var(--f-head); color: var(--saffron-deep); font-weight: 600; font-size: clamp(0.82rem, 3.2vw, 0.96rem); white-space: nowrap; }
+
+.venue-pill {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+    padding: 9px 18px; border-radius: 999px; border: 1px solid var(--gold);
+    background: #fff; color: var(--maroon); text-decoration: none;
+    font-family: var(--f-head); font-weight: 600; font-size: clamp(0.86rem, 3.4vw, 1rem);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.venue-pill:hover { transform: translateY(-2px); background: #FBF4E3; }
+
+.prog-divider { height: 1px; margin: 26px auto; width: 72%; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+.dress-code {
+    margin-top: 24px; display: inline-flex; flex-direction: column; gap: 3px;
+    padding: 13px 28px; border: 1px solid var(--gold); border-radius: 14px;
+    background: linear-gradient(180deg, #FBF2D9, #F6E8C6);
+}
+.dress-label { font-family: var(--f-latin); letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.66rem; color: var(--gold); }
+.dress-value { font-family: var(--f-display); color: var(--maroon); font-size: clamp(1.05rem, 4.4vw, 1.35rem); }
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-inner, .scroll-teaser { transition: none; }
+    .wax-seal { animation: none; }
+}
+
 .quote-card {
     width: 100%; margin-top: 28px; text-align: center;
     padding: clamp(22px, 5vw, 34px);

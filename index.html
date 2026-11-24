@@ -167,26 +167,64 @@
             <p class="eyebrow reveal">सादर आमंत्रण</p>
             <h2 class="section-title reveal">आयोजन एवं स्नेह निमंत्रण</h2>
 
-            <div class="details-grid">
-                <div class="card detail-card reveal">
-                    <div class="detail-icon">📅</div>
-                    <span class="detail-tag">तिथि एवं समय</span>
-                    <h4 class="detail-main">सोमवार, ७ दिसंबर २०२६</h4>
-                    <p class="detail-sub">सायंकाल ५.३० बजे</p>
-                    <p class="detail-sub muted">स्नेहभोज ८.१५ बजे</p>
+            <p class="scroll-cue-line reveal">पुरातन आज्ञापत्र — कार्यक्रम देखने हेतु स्पर्श करें</p>
+
+            <!-- ROYAL UNROLLING SCROLL (आज्ञापत्र) -->
+            <div class="royal-scroll reveal" id="royalScroll" role="button" tabindex="0" aria-expanded="false" aria-label="कार्यक्रम देखने हेतु स्पर्श करें">
+                <div class="scroll-rod rod-top" aria-hidden="true"></div>
+
+                <div class="scroll-paper">
+                    <!-- Closed teaser: date + wax seal -->
+                    <div class="scroll-teaser">
+                        <p class="teaser-head">॥ कार्यक्रम पत्रिका ॥</p>
+                        <p class="teaser-date">सोमवार, ७ दिसंबर २०२६</p>
+                        <div class="wax-seal" aria-hidden="true">
+                            <span class="seal-icon">卐</span>
+                            <span class="seal-tap">स्पर्श करें</span>
+                        </div>
+                    </div>
+
+                    <!-- Opened: full schedule -->
+                    <div class="scroll-inner">
+                        <div class="scroll-crest">॥ पद्म पर्व ॥</div>
+                        <p class="scroll-date-line">सोमवार, ७ दिसंबर २०२६</p>
+                        <div class="rule-ornament small" aria-hidden="true">
+                            <span class="rule-line"></span><span class="rule-sun">☀</span><span class="rule-line"></span>
+                        </div>
+
+                        <!-- Morning -->
+                        <div class="prog-block">
+                            <h4 class="prog-title">🌅 सुबह का कार्यक्रम</h4>
+                            <ul class="prog-list">
+                                <li class="prog-item"><span class="prog-name">नाश्ता</span><span class="prog-time">सुबह ८.१५ बजे से</span></li>
+                                <li class="prog-item"><span class="prog-name">श्री कल्याणोत्सव</span><span class="prog-time">सुबह ९.१५ बजे से</span></li>
+                                <li class="prog-item"><span class="prog-name">भोजन</span><span class="prog-time">दोपहर १२.१५ बजे से</span></li>
+                                <li class="prog-item"><span class="prog-name">रक्तदान शिविर</span><span class="prog-time">सुबह ८.१५ – दोपहर १२.१५</span></li>
+                            </ul>
+                            <a class="venue-pill" href="https://maps.google.com/?q=Tapadiya+Nivas+Pink+Palace+Chhatrapati+Sambhajinagar" target="_blank" rel="noopener">📍 तापड़िया निवास – पिंक पैलेस</a>
+                        </div>
+
+                        <div class="prog-divider" aria-hidden="true"></div>
+
+                        <!-- Evening -->
+                        <div class="prog-block">
+                            <h4 class="prog-title">🌆 शाम का कार्यक्रम</h4>
+                            <ul class="prog-list">
+                                <li class="prog-item"><span class="prog-name">रक्तदान शिविर</span><span class="prog-time">दोपहर ३ बजे से</span></li>
+                                <li class="prog-item"><span class="prog-name">शिवप्रेरणा<small class="prog-note">पूज्य स्वामी श्री गोविन्द देव गिरिजी महाराज का प्रवचन</small></span><span class="prog-time">शाम ५.३० बजे</span></li>
+                                <li class="prog-item"><span class="prog-name">स्नेहभोज</span><span class="prog-time">शाम ८.१५ बजे</span></li>
+                            </ul>
+                            <a class="venue-pill" href="https://maps.google.com/?q=Tapadiya+Kasliwal+Ground+Adalat+Road+Chhatrapati+Sambhajinagar" target="_blank" rel="noopener">📍 तापड़िया – कासलीवाल ग्राउंड, अदालत रोड</a>
+                        </div>
+
+                        <div class="dress-code">
+                            <span class="dress-label">ड्रेस कोड</span>
+                            <span class="dress-value">पेशवाई / पैठणी</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card detail-card reveal">
-                    <div class="detail-icon">📍</div>
-                    <span class="detail-tag">कार्यक्रम स्थल</span>
-                    <h4 class="detail-main">तापडिया - कासलीवाल ग्राउंड</h4>
-                    <p class="detail-sub">अदालत रोड, छत्रपती संभाजीनगर</p>
-                    <a class="pill-btn" id="mapsBtn"
-                       href="https://maps.google.com/?q=Tapadiya+Kasliwal+Ground+Adalat+Road+Chhatrapati+Sambhajinagar"
-                       target="_blank" rel="noopener">
-                        <span class="pin">📍</span> दिशा देखें • View on Maps
-                    </a>
-                </div>
+                <div class="scroll-rod rod-bottom" aria-hidden="true"></div>
             </div>
 
             <div class="quote-card reveal">

@@ -289,7 +289,31 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
     // -------------------------------------------------------------------------
-    // 9. REPLAY
+    // 9. ROYAL SCHEDULE SCROLL (unroll on tap)
+    // -------------------------------------------------------------------------
+    const royalScroll = $('royalScroll');
+    if (royalScroll) {
+        const openScroll = () => {
+            if (royalScroll.classList.contains('open')) return;
+            royalScroll.classList.add('open');
+            royalScroll.setAttribute('aria-expanded', 'true');
+            royalScroll.style.cursor = 'default';
+            try { audio.chime(); } catch (e) {}
+        };
+        royalScroll.addEventListener('click', (e) => {
+            if (royalScroll.classList.contains('open')) return;   // once open, don't collapse
+            if (e.target.closest('a, button')) return;            // let links work
+            openScroll();
+        });
+        royalScroll.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && !royalScroll.classList.contains('open')) {
+                e.preventDefault(); openScroll();
+            }
+        });
+    }
+
+    // -------------------------------------------------------------------------
+    // 10. REPLAY
     // -------------------------------------------------------------------------
     const replayBtn = $('replayBtn');
     if (replayBtn) {
