@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="hi" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>पद्म पर्व | भव्य गौरव समारोह एवं अमृत व्याख्यान 'शिवप्रेरणा'</title>
+
+    <meta name="description" content="पद्म पर्व - सौ. पद्मा तापड़िया के १०१ दुर्गों की ऐतिहासिक यात्रा का भव्य गौरव समारोह एवं पूज्य स्वामी श्री गोविन्द देव गिरिजी महाराज का अमृत व्याख्यान 'शिवप्रेरणा'.">
+    <meta name="theme-color" content="#FBF6EC">
+    <meta name="color-scheme" content="only light">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="पद्म पर्व — भव्य गौरव समारोह एवं अमृत व्याख्यान 'शिवप्रेरणा'">
+    <meta property="og:description" content="सौ. पद्मा तापड़िया की १०१ दुर्गों की ऐतिहासिक यात्रा का गौरव समारोह। सोमवार, ७ दिसंबर २०२६, छत्रपती संभाजीनगर।">
+    <meta property="og:image" content="assets/padma-tapadiya-101-forts-banner.jpg">
+
+    <!-- Google Fonts: Devanagari + Royal Latin -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Marcellus&family=Noto+Serif+Devanagari:wght@400;500;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="preload">
+
+    <!-- Background Canvas: Floating Golden Dust -->
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    <!-- Floating Petals Layer (JS populated) -->
+    <div id="petalLayer" class="petal-layer" aria-hidden="true"></div>
+
+    <!-- Fixed Decorative Gold Corner Frames -->
+    <div class="corner-frame cf-tl" aria-hidden="true"></div>
+    <div class="corner-frame cf-tr" aria-hidden="true"></div>
+    <div class="corner-frame cf-bl" aria-hidden="true"></div>
+    <div class="corner-frame cf-br" aria-hidden="true"></div>
+
+    <!-- ===================================================================
+         STAGE 1 — OPENER (Tap to Reveal)
+    ==================================================================== -->
+    <section id="opener" class="opener">
+        <div class="opener-inner">
+            <div class="opener-card" id="openerCard" role="button" tabindex="0" aria-label="निमंत्रण खोलने के लिए स्पर्श करें">
+                <img src="assets/book-cover.jpg" alt="पद्म पर्व — श्रद्धा • साहस • सेवा" class="opener-cover-img">
+                <div class="opener-shine" aria-hidden="true"></div>
+            </div>
+            <p class="opener-hint">॥ श्री गणेशाय नमः ॥</p>
+            <button class="opener-reveal-btn" id="openerRevealBtn" type="button">
+                <span class="reveal-text">स्पर्श करें</span>
+                <span class="reveal-sub">Tap to Reveal</span>
+            </button>
+        </div>
+        <!-- Golden light burst on reveal -->
+        <div class="burst" id="burst" aria-hidden="true"></div>
+    </section>
+
+    <!-- Intro Video Overlay (plays after reveal, skippable) -->
+    <div id="videoOverlay" class="video-overlay hidden" aria-hidden="true">
+        <video id="introVideo" playsinline preload="auto" muted>
+            <source src="assets/intro-video.mp4" type="video/mp4">
+            <source src="WhatsApp Video 2026-11-09 at 1.09.36 PM.mp4" type="video/mp4">
+        </video>
+        <button id="skipVideoBtn" class="skip-video-btn" type="button">पुढे जा • Skip ❯</button>
+    </div>
+
+    <!-- ===================================================================
+         MAIN SCROLL CONTENT
+    ==================================================================== -->
+    <main id="main" class="main-scroll" aria-hidden="true">
+
+        <!-- ---------- SECTION: HERO INVITATION ---------- -->
+        <section class="section hero-section">
+            <div class="card invite-card reveal">
+                <div class="deity-mark">卐</div>
+                <h1 class="sacred-invocation">श्री गणेशाय नमः</h1>
+
+                <div class="banner-chip">
+                    <span>🚩</span>
+                    <span class="chip-text">छत्रपति शिवाजी महाराज से सदैव प्रेरित</span>
+                    <span>🚩</span>
+                </div>
+
+                <p class="invite-lead">आइये इस प्रेरणादायी उपलब्धि का उत्सव मनाएँ</p>
+
+                <div class="brand-title">
+                    <span class="lotus-mark" aria-hidden="true">✦</span>
+                    <h2 class="display-name">पद्म पर्व</h2>
+                    <p class="brand-tagline">श्रद्धा &nbsp;•&nbsp; साहस &nbsp;•&nbsp; सेवा</p>
+                </div>
+
+                <div class="rule-ornament" aria-hidden="true">
+                    <span class="rule-line"></span>
+                    <span class="rule-sun">☀</span>
+                    <span class="rule-line"></span>
+                </div>
+
+                <p class="honoree-intro">जिनकी ऐतिहासिक यात्रा का हम अभिनंदन करते हैं</p>
+                <h3 class="honoree-name">सौ. पद्मा तापड़िया</h3>
+                <p class="honoree-feat">दुर्ग १०१ &nbsp;•&nbsp; आयु ७० &nbsp;•&nbsp; एक अद्भुत संकल्प</p>
+            </div>
+
+            <div class="scroll-cue reveal">
+                <span class="scroll-cue-text">आगे देखें</span>
+                <span class="scroll-cue-arrow">⌄</span>
+            </div>
+        </section>
+
+        <!-- ---------- SECTION: THE JOURNEY (101 FORTS) ---------- -->
+        <section class="section journey-section">
+            <p class="eyebrow reveal">गौरव गाथा</p>
+            <h2 class="section-title reveal">दुर्ग १०१</h2>
+
+            <figure class="journey-photo reveal">
+                <img src="assets/padma-tapadiya-101-forts-banner.jpg" alt="सौ. पद्मा तापड़िया की १०१ दुर्गों की ऐतिहासिक यात्रा" id="fortsBanner">
+                <figcaption>सौ. पद्मा तापड़िया की ऐतिहासिक यात्रा को सादर नमन&nbsp;!</figcaption>
+            </figure>
+
+            <div class="card narrative-card reveal">
+                <div class="badge-flame">🚩</div>
+                <h4 class="narrative-title">एक अलौकिक गौरव समारोह</h4>
+                <p class="narrative-text">जीवन के सत्तरवें वर्ष में दृढ़ संकल्प और छत्रपति शिवाजी महाराज की प्रेरणा से १०१ दुर्गों की ऐतिहासिक विजय गाथा।</p>
+            </div>
+        </section>
+
+        <!-- ---------- SECTION: COUNTDOWN ---------- -->
+        <section class="section countdown-section">
+            <div class="card countdown-card reveal">
+                <p class="countdown-kicker">शुभ घड़ी की प्रतीक्षा</p>
+                <h2 class="countdown-title">पद्म पर्व</h2>
+                <p class="countdown-date">०७ &nbsp;·&nbsp; १२ &nbsp;·&nbsp; २०२६</p>
+
+                <div class="countdown-grid" id="countdown">
+                    <div class="count-block"><span class="count-num" id="cdDays">००</span><span class="count-label">दिन</span></div>
+                    <div class="count-block"><span class="count-num" id="cdHours">००</span><span class="count-label">घंटे</span></div>
+                    <div class="count-block"><span class="count-num" id="cdMins">००</span><span class="count-label">मिनट</span></div>
+                    <div class="count-block"><span class="count-num" id="cdSecs">००</span><span class="count-label">सेकंड</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- SECTION: SHIVAPRERANA (DISCOURSE) ---------- -->
+        <section class="section discourse-section">
+            <p class="eyebrow reveal">अमृत व्याख्यान</p>
+            <h2 class="section-title reveal">शिवप्रेरणा</h2>
+
+            <div class="card discourse-card reveal">
+                <div class="swami-frame">
+                    <img src="assets/swamiji-portrait.jpg" alt="पूज्य स्वामी श्री गोविन्द देव गिरिजी महाराज" class="swami-img">
+                </div>
+                <p class="swami-pre">पूज्य स्वामी</p>
+                <h3 class="swami-name">श्री गोविन्द देव गिरिजी महाराज</h3>
+                <p class="swami-post">के मुखारविंद से सुने</p>
+
+                <div class="rule-ornament small" aria-hidden="true">
+                    <span class="rule-line"></span>
+                    <span class="rule-sun">🪔</span>
+                    <span class="rule-line"></span>
+                </div>
+
+                <p class="discourse-sub">युगपुरुष छत्रपति शिवाजी महाराज के</p>
+                <p class="discourse-sub-strong">व्यक्तित्व के कुछ अनछुए पहलु</p>
+            </div>
+        </section>
+
+        <!-- ---------- SECTION: EVENT DETAILS + VENUE ---------- -->
+        <section class="section details-section">
+            <p class="eyebrow reveal">सादर आमंत्रण</p>
+            <h2 class="section-title reveal">आयोजन एवं स्नेह निमंत्रण</h2>
+
+            <div class="details-grid">
+                <div class="card detail-card reveal">
+                    <div class="detail-icon">📅</div>
+                    <span class="detail-tag">तिथि एवं समय</span>
+                    <h4 class="detail-main">सोमवार, ७ दिसंबर २०२६</h4>
+                    <p class="detail-sub">सायंकाल ५.३० बजे</p>
+                    <p class="detail-sub muted">स्नेहभोज ८.१५ बजे</p>
+                </div>
+
+                <div class="card detail-card reveal">
+                    <div class="detail-icon">📍</div>
+                    <span class="detail-tag">कार्यक्रम स्थल</span>
+                    <h4 class="detail-main">तापडिया - कासलीवाल ग्राउंड</h4>
+                    <p class="detail-sub">अदालत रोड, छत्रपती संभाजीनगर</p>
+                    <a class="pill-btn" id="mapsBtn"
+                       href="https://maps.google.com/?q=Tapadiya+Kasliwal+Ground+Adalat+Road+Chhatrapati+Sambhajinagar"
+                       target="_blank" rel="noopener">
+                        <span class="pin">📍</span> दिशा देखें • View on Maps
+                    </a>
+                </div>
+            </div>
+
+            <div class="quote-card reveal">
+                <div class="quote-heart" aria-hidden="true">❖</div>
+                <p class="quote-text">श्रद्धा, साहस और सेवा — एक अद्भुत संकल्प की गौरव गाथा।</p>
+            </div>
+        </section>
+
+        <!-- ---------- SECTION: RSVP ---------- -->
+        <section class="section rsvp-section">
+            <p class="eyebrow reveal">सस्नेह</p>
+            <h2 class="section-title reveal">उपस्थिति सूचित करें</h2>
+            <p class="rsvp-note reveal">कृपया हमें बताएँ कि आप इस गौरव पर्व में सम्मिलित होंगे।</p>
+
+            <form class="card rsvp-card reveal" id="rsvpForm" novalidate>
+                <label class="field-label" for="rsvpName">आपका नाम</label>
+                <input class="field-input" id="rsvpName" name="name" type="text" placeholder="पूरा नाम" autocomplete="name">
+
+                <label class="field-label" for="rsvpPhone">संपर्क क्रमांक</label>
+                <input class="field-input" id="rsvpPhone" name="phone" type="tel" placeholder="वैकल्पिक" autocomplete="tel">
+
+                <span class="field-label">क्या आप सम्मिलित होंगे?</span>
+                <div class="choice-row">
+                    <button type="button" class="choice-btn active" data-choice="yes">सहर्ष, हाँ</button>
+                    <button type="button" class="choice-btn" data-choice="no">क्षमा करें, नहीं</button>
+                </div>
+
+                <label class="field-label" for="rsvpCount">कितने लोग?</label>
+                <input class="field-input" id="rsvpCount" name="count" type="number" min="1" value="1" inputmode="numeric">
+
+                <label class="field-label" for="rsvpNote">शुभकामना संदेश</label>
+                <textarea class="field-input field-textarea" id="rsvpNote" name="note" placeholder="आपके आशीर्वाद एवं शुभकामनाएँ..."></textarea>
+
+                <button type="submit" class="pill-btn submit-btn">निमंत्रण स्वीकार करें</button>
+            </form>
+        </section>
+
+        <!-- ---------- FOOTER ---------- -->
+        <footer class="site-footer">
+            <div class="footer-inner reveal">
+                <p class="footer-blessing">आपकी गरिमामयी उपस्थिति ही हमारा अहोभाग्य है।</p>
+                <p class="footer-blessing soft">सस्नेह आमंत्रण के साथ, हम आपका हार्दिक स्वागत करते हैं।</p>
+
+                <div class="footer-rule" aria-hidden="true">
+                    <span class="rule-line"></span>
+                    <span class="rule-diamond">❖</span>
+                    <span class="rule-line"></span>
+                </div>
+
+                <p class="footer-regards">सस्नेह निमंत्रक</p>
+                <h3 class="footer-host">जुगलकिशोर तापड़िया</h3>
+                <h4 class="footer-host-sub">अभिषेक तापड़िया</h4>
+                <p class="footer-joiner">एवं</p>
+                <h4 class="footer-host-sub">समस्त तापड़िया परिवार</h4>
+
+                <p class="footer-city">🏰 &nbsp; छत्रपती संभाजीनगर</p>
+
+                <p class="footer-mangalam">॥ शुभं भवतु ॥</p>
+
+                <button class="replay-btn" id="replayBtn" type="button">↺ पुनः प्रारंभ करें</button>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Fixed Audio Toggle -->
+    <button id="audioToggle" class="audio-toggle" type="button" aria-label="संगीत चालू/बंद करें" title="संगीत">
+        <svg class="icon-on" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        <svg class="icon-off hidden" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm18.3-.3-1.4-1.4L17 10.2 14.1 7.3l-1.4 1.4L15.6 12l-2.9 2.9 1.4 1.4L17 13.8l2.9 2.9 1.4-1.4L18.4 12l2.9-3.3z"/></svg>
+    </button>
+
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="image-modal hidden" aria-hidden="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <button id="closeModalBtn" class="close-modal-btn" type="button" aria-label="बंद करें">✕</button>
+            <img src="assets/padma-tapadiya-101-forts-banner.jpg" alt="पद्म पर्व — पूर्ण आमंत्रण" class="modal-img">
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
