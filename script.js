@@ -289,42 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
     // -------------------------------------------------------------------------
-    // 9. RSVP
-    // -------------------------------------------------------------------------
-    const form = $('rsvpForm');
-    const choiceBtns = document.querySelectorAll('.choice-btn');
-    let choice = 'yes';
-    choiceBtns.forEach(b => b.addEventListener('click', () => {
-        choiceBtns.forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        choice = b.dataset.choice;
-    }));
-    const toast = $('toast');
-    function showToast(msg) {
-        if (!toast) return;
-        toast.textContent = msg;
-        toast.classList.remove('hidden');
-        requestAnimationFrame(() => toast.classList.add('show'));
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.classList.add('hidden'), 400);
-        }, 3600);
-    }
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = ($('rsvpName').value || '').trim();
-            if (!name) { $('rsvpName').focus(); showToast('कृपया अपना नाम लिखें 🙏'); return; }
-            audio.chime();
-            if (choice === 'yes') showToast(`धन्यवाद, ${name} जी! आपकी उपस्थिति प्रतीक्षित है 🙏`);
-            else showToast(`धन्यवाद, ${name} जी! आपकी शुभकामनाएँ प्राप्त हुईं 🙏`);
-            form.reset();
-            $('rsvpCount').value = 1;
-        });
-    }
-
-    // -------------------------------------------------------------------------
-    // 10. REPLAY
+    // 9. REPLAY
     // -------------------------------------------------------------------------
     const replayBtn = $('replayBtn');
     if (replayBtn) {
