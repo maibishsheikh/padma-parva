@@ -131,6 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const audio = new AudioEngine();
 
+    // Background music (uploaded track) — the real soundtrack of the page
+    const bgAudio = $('bgAudio');
+    if (bgAudio) bgAudio.volume = 0.6;
+    function playMusic() {
+        if (!bgAudio) return;
+        const pr = bgAudio.play();
+        if (pr && pr.catch) pr.catch(() => setAudioIcon(false));
+        setAudioIcon(true);
+    }
+    function pauseMusic() {
+        if (bgAudio) bgAudio.pause();
+        setAudioIcon(false);
+    }
+
     // -------------------------------------------------------------------------
     // 4. OPENER → BURST → (VIDEO) → MAIN
     // -------------------------------------------------------------------------
@@ -158,8 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoOverlay.classList.add('hidden');
         videoOverlay.setAttribute('aria-hidden', 'true');
         document.documentElement.style.overflow = '';
-        audio.startAmbient();
-        setAudioIcon(true);
+        playMusic();
         showMain();
     }
 
@@ -188,6 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.ensure();
         audio.chime();
 
+        // Prime the music track within this user gesture so it can autoplay later
+        if (bgAudio) {
+            bgAudio.muted = true;
+            const pp = bgAudio.play();
+            if (pp && pp.then) pp.then(() => { bgAudio.pause(); bgAudio.currentTime = 0; bgAudio.muted = false; })
+                                 .catch(() => { bgAudio.muted = false; });
+        }
+
         burst.classList.add('fire');
         setTimeout(() => {
             opener.classList.add('gone');
@@ -195,8 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 playIntroVideo();
             } else {
                 document.documentElement.style.overflow = '';
-                audio.startAmbient();
-                setAudioIcon(true);
+                playMusic();
                 showMain();
             }
             setTimeout(() => { opener.style.display = 'none'; }, 850);
@@ -269,8 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setAudioIcon(false);
     if (audioToggle) {
         audioToggle.addEventListener('click', () => {
-            if (audio.playing) { audio.stopAmbient(); setAudioIcon(false); }
-            else { audio.startAmbient(); setAudioIcon(true); }
+            if (bgAudio && !bgAudio.paused) { pauseMusic(); }
+            else { playMusic(); }
         });
     }
 
