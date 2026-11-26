@@ -312,12 +312,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. ROYAL SCHEDULE SCROLL (unroll on tap)
     // -------------------------------------------------------------------------
     const royalScroll = $('royalScroll');
+    const scrollOpenCta = $('scrollOpenCta');
     if (royalScroll) {
         const openScroll = () => {
             if (royalScroll.classList.contains('open')) return;
             royalScroll.classList.add('open');
             royalScroll.setAttribute('aria-expanded', 'true');
             royalScroll.style.cursor = 'default';
+            if (scrollOpenCta) scrollOpenCta.classList.add('gone');
             try { audio.chime(); } catch (e) {}
         };
         royalScroll.addEventListener('click', (e) => {
@@ -330,6 +332,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault(); openScroll();
             }
         });
+        if (scrollOpenCta) scrollOpenCta.addEventListener('click', openScroll);
+    }
+
+    // -------------------------------------------------------------------------
+    // 9b. SCROLL PROGRESS BAR (animation while scrolling)
+    // -------------------------------------------------------------------------
+    const progressBar = $('scrollProgress');
+    if (progressBar) {
+        let ticking = false;
+        const updateProgress = () => {
+            const h = document.documentElement;
+            const max = (h.scrollHeight - h.clientHeight) || 1;
+            const top = h.scrollTop || document.body.scrollTop || 0;
+            progressBar.style.width = Math.min(100, Math.max(0, top / max * 100)) + '%';
+            ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+            if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); }
+        }, { passive: true });
+        updateProgress();
     }
 
     // -------------------------------------------------------------------------
