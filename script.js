@@ -309,30 +309,47 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
     // -------------------------------------------------------------------------
-    // 9. ROYAL SCHEDULE SCROLL (unroll on tap)
+    // 9. ROYAL SCHEDULE SCROLL — auto-unrolls on scroll-down, rolls up on scroll-up
     // -------------------------------------------------------------------------
     const royalScroll = $('royalScroll');
-    const scrollOpenCta = $('scrollOpenCta');
     if (royalScroll) {
         const openScroll = () => {
             if (royalScroll.classList.contains('open')) return;
             royalScroll.classList.add('open');
             royalScroll.setAttribute('aria-expanded', 'true');
-            royalScroll.style.cursor = 'default';
-            if (scrollOpenCta) scrollOpenCta.classList.add('gone');
             try { audio.chime(); } catch (e) {}
-
-            // Glide the page to the scroll so it opens into full view — the top aligns
-            // to the viewport and the unfurl animation plays as the page arrives, so the
-            // reader never has to hunt for the scroll manually.
-            setTimeout(() => {
-                const top = royalScroll.getBoundingClientRect().top + window.pageYOffset - 16;
-                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-            }, 520);
         };
+        const closeScroll = () => {
+            if (!royalScroll.classList.contains('open')) return;
+            royalScroll.classList.remove('open');
+            royalScroll.setAttribute('aria-expanded', 'false');
+        };
+
+        // Open as it scrolls into view (going down); roll back up when scrolling up past it.
+        // Hysteresis (open at 0.62, close at 0.86 of viewport height) prevents flicker.
+        let lastY = window.pageYOffset || 0, scheduled = false;
+        const check = () => {
+            scheduled = false;
+            const y = window.pageYOffset || 0;
+            const goingDown = y > lastY;
+            lastY = y;
+            const rect = royalScroll.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const isOpen = royalScroll.classList.contains('open');
+            if (goingDown && !isOpen && rect.top < vh * 0.62 && rect.bottom > vh * 0.15) {
+                openScroll();
+            } else if (!goingDown && isOpen && rect.top > vh * 0.86) {
+                closeScroll();
+            }
+        };
+        window.addEventListener('scroll', () => {
+            if (!scheduled) { scheduled = true; requestAnimationFrame(check); }
+        }, { passive: true });
+
+        // Manual fallback: tapping the sealed scroll also opens it
         royalScroll.addEventListener('click', (e) => {
-            if (royalScroll.classList.contains('open')) return;   // once open, don't collapse
-            if (e.target.closest('a, button')) return;            // let links work
+            if (royalScroll.classList.contains('open')) return;
+            if (e.target.closest('a, button')) return;
             openScroll();
         });
         royalScroll.addEventListener('keydown', (e) => {
@@ -340,7 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault(); openScroll();
             }
         });
-        if (scrollOpenCta) scrollOpenCta.addEventListener('click', openScroll);
     }
 
     // -------------------------------------------------------------------------

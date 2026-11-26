@@ -334,8 +334,11 @@ body.preload { overflow: hidden; height: 100vh; }
     font-family: var(--f-verse); font-style: italic; color: var(--maroon-soft);
     font-size: clamp(0.92rem, 3.6vw, 1.08rem); margin-top: 14px;
 }
-.journey-photo.featured { transform: rotate(1.3deg); margin-bottom: 26px; }
+.journey-photo.featured { transform: rotate(2.6deg); margin-bottom: 28px; }
+.journey-photo.featured.reveal:not(.in) { transform: translateX(-46px) rotate(2.6deg); }
 .cap-strong { color: var(--saffron-deep); font-style: normal; font-weight: 700; font-family: var(--f-head); }
+.journey-photo figcaption .cap-line { display: block; }
+.journey-photo figcaption .cap-line + .cap-line { margin-top: 4px; }
 
 .narrative-card { text-align: center; background: linear-gradient(180deg, #FFFDF8, #FBF4E3); }
 .badge-flame { font-size: 1.8rem; }
