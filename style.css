@@ -454,6 +454,7 @@ body.preload { overflow: hidden; height: 100vh; }
 .royal-scroll {
     width: 100%; max-width: 560px; margin: 0 auto;
     cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+    scroll-margin-top: 16px;
 }
 .royal-scroll:focus-visible { box-shadow: 0 0 0 3px rgba(184,144,47,0.35); border-radius: 18px; }
 

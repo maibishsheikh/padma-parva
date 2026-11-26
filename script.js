@@ -321,6 +321,14 @@ document.addEventListener('DOMContentLoaded', () => {
             royalScroll.style.cursor = 'default';
             if (scrollOpenCta) scrollOpenCta.classList.add('gone');
             try { audio.chime(); } catch (e) {}
+
+            // Glide the page to the scroll so it opens into full view — the top aligns
+            // to the viewport and the unfurl animation plays as the page arrives, so the
+            // reader never has to hunt for the scroll manually.
+            setTimeout(() => {
+                const top = royalScroll.getBoundingClientRect().top + window.pageYOffset - 16;
+                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+            }, 520);
         };
         royalScroll.addEventListener('click', (e) => {
             if (royalScroll.classList.contains('open')) return;   // once open, don't collapse
